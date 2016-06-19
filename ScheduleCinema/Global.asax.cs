@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using EFlogger.EntityFramework6;
 
 namespace ScheduleCinema
 {
@@ -16,6 +17,7 @@ namespace ScheduleCinema
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            EFloggerFor6.Initialize(); //TODO For Debug only!
         }
     }
 }

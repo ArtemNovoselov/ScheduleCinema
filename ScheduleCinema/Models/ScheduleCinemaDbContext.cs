@@ -7,10 +7,15 @@ namespace ScheduleCinema.Models
 
     public partial class ScheduleCinemaDbContext : DbContext
     {
+        public ScheduleCinemaDbContext()
+            : base("name=ScheduleCinemaDbContext")
+        {
+        }
+
         public virtual DbSet<Cinema> Cinemas { get; set; }
-        public virtual DbSet<CinemaMovie> CinemaMovies { get; set; }
-        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<CinemaSession> CinemaSessions { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -23,26 +28,39 @@ namespace ScheduleCinema.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cinema>()
-                .HasMany(e => e.CinemaMovies)
+                .HasMany(e => e.CinemaSessions)
                 .WithRequired(e => e.Cinema)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<City>()
-                .Property(e => e.CityName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<City>()
-                .HasMany(e => e.Cinemas)
-                .WithRequired(e => e.City)
+            modelBuilder.Entity<Cinema>()
+                .HasMany(e => e.Schedules)
+                .WithRequired(e => e.Cinema)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CinemaSession>()
+                .Property(e => e.CinemaSessionPrice)
+                .HasPrecision(19, 4);
 
             modelBuilder.Entity<Movie>()
                 .Property(e => e.MovieName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()
-                .HasMany(e => e.CinemaMovies)
+                .Property(e => e.MovieDirector)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(e => e.CinemaSessions)
                 .WithRequired(e => e.Movie)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Schedule>()
+                .Property(e => e.ScheduleDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Schedule>()
+                .HasMany(e => e.CinemaSessions)
+                .WithRequired(e => e.Schedule)
                 .WillCascadeOnDelete(false);
         }
     }

@@ -6,26 +6,30 @@ namespace ScheduleCinema.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("City")]
-    public partial class City
+    [Table("Schedule")]
+    public partial class Schedule
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public City()
+        public Schedule()
         {
-            Cinemas = new HashSet<Cinema>();
+            CinemaSessions = new HashSet<CinemaSession>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CityId { get; set; }
+        public int ScheduleId { get; set; }
+
+        public int CinemaId { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime ScheduleDate { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string CityName { get; set; }
-        
-        [StringLength(200)]
-        public string CityPostCode { get; set; }
+        [StringLength(500)]
+        public string ScheduleDescription { get; set; }
+
+        public virtual Cinema Cinema { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cinema> Cinemas { get; set; }
+        public virtual ICollection<CinemaSession> CinemaSessions { get; set; }
     }
 }

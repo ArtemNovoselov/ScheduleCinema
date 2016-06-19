@@ -6,24 +6,27 @@ namespace ScheduleCinema.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CinemaMovie")]
-    public partial class CinemaMovie
+    [Table("CinemaSession")]
+    public partial class CinemaSession
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CinemaMovieBindingId { get; set; }
+        public int CinemaSessionId { get; set; }
 
         public int CinemaId { get; set; }
 
         public int MovieId { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime CinemaMovieDate { get; set; }
+        public TimeSpan CinemaSessionTime { get; set; }
 
-        public TimeSpan CinemaMovieTime { get; set; }
+        public int ScheduleId { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal CinemaSessionPrice { get; set; }
 
         public virtual Cinema Cinema { get; set; }
 
         public virtual Movie Movie { get; set; }
+
+        public virtual Schedule Schedule { get; set; }
     }
 }

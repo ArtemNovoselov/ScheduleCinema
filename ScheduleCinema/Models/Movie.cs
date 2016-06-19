@@ -12,7 +12,7 @@ namespace ScheduleCinema.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Movie()
         {
-            CinemaMovies = new HashSet<CinemaMovie>();
+            CinemaSessions = new HashSet<CinemaSession>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -22,7 +22,11 @@ namespace ScheduleCinema.Models
         [StringLength(200)]
         public string MovieName { get; set; }
 
+        [Required]
+        [StringLength(100)]
+        public string MovieDirector { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CinemaMovie> CinemaMovies { get; set; }
+        public virtual ICollection<CinemaSession> CinemaSessions { get; set; }
     }
 }
