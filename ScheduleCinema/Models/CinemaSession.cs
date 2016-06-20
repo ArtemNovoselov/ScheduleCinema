@@ -18,7 +18,7 @@ namespace ScheduleCinema.Models
 
         public TimeSpan CinemaSessionTime { get; set; }
 
-        public int ScheduleId { get; set; }
+        public int CinemaScheduleId { get; set; }
 
         [Column(TypeName = "money")]
         public decimal CinemaSessionPrice { get; set; }
@@ -27,6 +27,6 @@ namespace ScheduleCinema.Models
 
         public virtual Movie Movie { get; set; }
 
-        public virtual Schedule Schedule { get; set; }
+        public virtual CinemaSchedule CinemaSchedule { get; set; }
     }
 }

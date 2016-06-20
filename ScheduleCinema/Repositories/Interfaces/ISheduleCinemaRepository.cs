@@ -10,10 +10,10 @@ namespace ScheduleCinema.Repositories.Interfaces
     {
         IEnumerable<Cinema> GetCinemas();
         IEnumerable<Movie> GetMovies();
-        IEnumerable<Schedule> GetSchedules(DateTime date);
-        Schedule GetSchedule(int scheduleId);
-        void SaveSchedule(Schedule schedule);
-        void EditSchedule(Schedule schedule);
+        IEnumerable<CinemaSchedule> GetSchedules(DateTime date);
+        CinemaSchedule GetSchedule(int? scheduleId);
+        void SaveSchedule(CinemaSchedule cinemaSchedule);
+        void EditSchedule(CinemaSchedule cinemaSchedule);
         void DeleteSchedule(int scheduleId);
     }
 }

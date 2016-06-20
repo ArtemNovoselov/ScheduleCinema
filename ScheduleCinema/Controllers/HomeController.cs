@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ScheduleCinema.Repositories.Interfaces;
+using ScheduleCinema.ViewModels;
 
 namespace ScheduleCinema.Controllers
 {
@@ -16,23 +18,38 @@ namespace ScheduleCinema.Controllers
             _sheduleCinemaRepository = sheduleCinemaRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string scheduleDate)
         {
-            return View();
-        }
+            CityCinemasScheduleViewModel scheduleView = null;
+            ViewBag.Error = "";
+            DateTime formattedDate;
+            if (string.IsNullOrEmpty(scheduleDate))
+            {
+                formattedDate = DateTime.Now.Date;
+            }
+            else
+            {
+                if (!DateTime.TryParse(scheduleDate, out formattedDate))
+                {
+                    ViewBag.Error += "Ошибка формата даты\n";
+                    return View((CityCinemasScheduleViewModel) null);
+                }
+            }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Date = formattedDate.ToString("dd.MM.yy");
+            ViewBag.Title = "Расписание кинотеатров города Гадюкино за " + formattedDate.Date;
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var schedules = _sheduleCinemaRepository.GetSchedules(formattedDate);
+            if (schedules != null)
+            {
+                scheduleView = new CityCinemasScheduleViewModel(schedules.ToList(), formattedDate);
+            }
+            else
+            {
+                ViewBag.Error += "Расписания за выбранную дату не найдены\n";
+            }
+            
+            return View(scheduleView);
         }
     }
 }

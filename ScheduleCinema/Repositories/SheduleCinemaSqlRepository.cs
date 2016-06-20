@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using ScheduleCinema.Models;
@@ -18,37 +19,49 @@ namespace ScheduleCinema.Repositories
         
         public IEnumerable<Cinema> GetCinemas()
         {
-            return _dbContext.Cinemas.ToList();
+            return _dbContext.Cinemas.Include(cinema => cinema.Schedules).Include(cinema => cinema.CinemaSessions).ToList();
         }
 
         public IEnumerable<Movie> GetMovies()
         {
-            return _dbContext.Movies.ToList();
+            return _dbContext.Movies.Include(movie => movie.CinemaSessions).ToList();
         }
 
-        public IEnumerable<Schedule> GetSchedules(DateTime date)
+        public IEnumerable<CinemaSchedule> GetSchedules(DateTime date)
         {
-            throw new NotImplementedException();
+            if (_dbContext.Schedules.Any(schedule => schedule.ScheduleDate == date))
+            {
+                return _dbContext.Schedules.Include(schedule => schedule.Cinema).Where(schedule => schedule.ScheduleDate == date);
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public Schedule GetSchedule(int scheduleId)
+        public CinemaSchedule GetSchedule(int? scheduleId)
         {
-            throw new NotImplementedException();
+            return _dbContext.Schedules.Find(scheduleId);
         }
 
-        public void SaveSchedule(Schedule schedule)
+        public void SaveSchedule(CinemaSchedule cinemaSchedule)
         {
-            throw new NotImplementedException();
+            _dbContext.Schedules.Add(cinemaSchedule);
+            _dbContext.SaveChanges();
         }
 
-        public void EditSchedule(Schedule schedule)
+        public void EditSchedule(CinemaSchedule cinemaSchedule)
         {
-            throw new NotImplementedException();
+
+            _dbContext.Entry(cinemaSchedule).State = EntityState.Modified;
+            _dbContext.SaveChanges();
         }
 
         public void DeleteSchedule(int scheduleId)
         {
-            throw new NotImplementedException();
+            var schedule = _dbContext.Schedules.Find(scheduleId);
+            schedule.CinemaSessions.Clear();
+            _dbContext.Schedules.Remove(schedule);
         }
     }
 }

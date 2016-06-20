@@ -15,7 +15,7 @@ namespace ScheduleCinema.Models
         public virtual DbSet<Cinema> Cinemas { get; set; }
         public virtual DbSet<CinemaSession> CinemaSessions { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<CinemaSchedule> Schedules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -54,13 +54,13 @@ namespace ScheduleCinema.Models
                 .WithRequired(e => e.Movie)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Schedule>()
+            modelBuilder.Entity<CinemaSchedule>()
                 .Property(e => e.ScheduleDescription)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Schedule>()
+            modelBuilder.Entity<CinemaSchedule>()
                 .HasMany(e => e.CinemaSessions)
-                .WithRequired(e => e.Schedule)
+                .WithRequired(e => e.CinemaSchedule)
                 .WillCascadeOnDelete(false);
         }
     }

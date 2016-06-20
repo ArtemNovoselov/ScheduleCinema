@@ -164,24 +164,36 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\CinemaSchedulesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MetaDataModels\MetaDataCinema.cs" />
+    <Compile Include="Migrations\201606201111334_SchedulaNameAndMovieDuration.cs" />
+    <Compile Include="Migrations\201606201111334_SchedulaNameAndMovieDuration.Designer.cs">
+      <DependentUpon>201606201111334_SchedulaNameAndMovieDuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606201515068_ScheduleIdToCinemaScheduleId.cs" />
+    <Compile Include="Migrations\201606201515068_ScheduleIdToCinemaScheduleId.Designer.cs">
+      <DependentUpon>201606201515068_ScheduleIdToCinemaScheduleId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cinema.cs" />
     <Compile Include="Models\CinemaSession.cs" />
     <Compile Include="Models\Movie.cs" />
-    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\CinemaSchedule.cs" />
     <Compile Include="Models\ScheduleCinemaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Interfaces\ISheduleCinemaRepository.cs" />
     <Compile Include="Repositories\SheduleCinemaSqlRepository.cs" />
+    <Compile Include="ViewModels\CityCinemasScheduleViewModel.cs" />
     <Compile Include="ViewModels\EditCinemaScheduleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -193,6 +205,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -214,11 +227,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Schedule\Create.cshtml" />
+    <Content Include="Views\Schedule\Edit.cshtml" />
+    <Content Include="Views\Schedule\Delete.cshtml" />
+    <Content Include="Views\CinemaSchedules\Create.cshtml" />
+    <Content Include="Views\CinemaSchedules\Delete.cshtml" />
+    <Content Include="Views\CinemaSchedules\Details.cshtml" />
+    <Content Include="Views\CinemaSchedules\Edit.cshtml" />
+    <Content Include="Views\CinemaSchedules\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -230,6 +247,14 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606201111334_SchedulaNameAndMovieDuration.resx">
+      <DependentUpon>201606201111334_SchedulaNameAndMovieDuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201515068_ScheduleIdToCinemaScheduleId.resx">
+      <DependentUpon>201606201515068_ScheduleIdToCinemaScheduleId.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

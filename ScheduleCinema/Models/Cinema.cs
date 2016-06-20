@@ -6,6 +6,7 @@ namespace ScheduleCinema.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [MetadataType(typeof(MetatDataCinema))]
     [Table("Cinema")]
     public partial class Cinema
     {
@@ -13,7 +14,7 @@ namespace ScheduleCinema.Models
         public Cinema()
         {
             CinemaSessions = new HashSet<CinemaSession>();
-            Schedules = new HashSet<Schedule>();
+            Schedules = new HashSet<CinemaSchedule>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -31,6 +32,6 @@ namespace ScheduleCinema.Models
         public virtual ICollection<CinemaSession> CinemaSessions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<CinemaSchedule> Schedules { get; set; }
     }
 }

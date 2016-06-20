@@ -1,0 +1,43 @@
+﻿@model ScheduleCinema.Models.CinemaSchedule
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CinemaSchedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cinema.CinemaAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cinema.CinemaAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CinemaScheduleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
