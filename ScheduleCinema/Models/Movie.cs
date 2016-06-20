@@ -26,7 +26,6 @@ namespace ScheduleCinema.Models
         [StringLength(100)]
         public string MovieDirector { get; set; }
 
-        [Required]
         public TimeSpan MovieDuration { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

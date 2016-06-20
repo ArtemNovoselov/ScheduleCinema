@@ -14,8 +14,8 @@ namespace ScheduleCinema.Models
 
         public virtual DbSet<Cinema> Cinemas { get; set; }
         public virtual DbSet<CinemaSession> CinemaSessions { get; set; }
+        public virtual DbSet<CinemaSessionSpec> CinemaSessionSpecs { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<CinemaSchedule> Schedules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,13 +32,13 @@ namespace ScheduleCinema.Models
                 .WithRequired(e => e.Cinema)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Cinema>()
-                .HasMany(e => e.Schedules)
-                .WithRequired(e => e.Cinema)
+            modelBuilder.Entity<CinemaSession>()
+                .HasMany(e => e.CinemaSessionSpecs)
+                .WithRequired(e => e.CinemaSession)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CinemaSession>()
-                .Property(e => e.CinemaSessionPrice)
+            modelBuilder.Entity<CinemaSessionSpec>()
+                .Property(e => e.CinemaSessionSpecPrice)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<Movie>()
@@ -52,15 +52,6 @@ namespace ScheduleCinema.Models
             modelBuilder.Entity<Movie>()
                 .HasMany(e => e.CinemaSessions)
                 .WithRequired(e => e.Movie)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CinemaSchedule>()
-                .Property(e => e.ScheduleDescription)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CinemaSchedule>()
-                .HasMany(e => e.CinemaSessions)
-                .WithRequired(e => e.CinemaSchedule)
                 .WillCascadeOnDelete(false);
         }
     }

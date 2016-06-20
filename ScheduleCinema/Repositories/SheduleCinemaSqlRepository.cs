@@ -19,19 +19,18 @@ namespace ScheduleCinema.Repositories
         
         public IEnumerable<Cinema> GetCinemas()
         {
-            return _dbContext.Cinemas.Include(cinema => cinema.Schedules).Include(cinema => cinema.CinemaSessions).ToList();
+            return _dbContext.Cinemas.Include(cinema => cinema.CinemaSessions).ToList();
         }
 
         public IEnumerable<Movie> GetMovies()
         {
             return _dbContext.Movies.Include(movie => movie.CinemaSessions).ToList();
         }
-
-        public IEnumerable<CinemaSchedule> GetSchedules(DateTime date)
+        public IEnumerable<CinemaSession> GetCinemsSessions(DateTime date)
         {
-            if (_dbContext.Schedules.Any(schedule => schedule.ScheduleDate == date))
+            if (_dbContext.CinemaSessions.Any(cinemaSession => cinemaSession.CinemaSessionDate == date))
             {
-                return _dbContext.Schedules.Include(schedule => schedule.Cinema).Where(schedule => schedule.ScheduleDate == date);
+                return _dbContext.CinemaSessions.Include(cinemaSession => cinemaSession.Cinema).Where(cinemaSession => cinemaSession.CinemaSessionDate == date);
             }
             else
             {
@@ -39,29 +38,29 @@ namespace ScheduleCinema.Repositories
             }
         }
 
-        public CinemaSchedule GetSchedule(int? scheduleId)
+        public CinemaSession GetCinemaSession(int cinemaSessionId)
         {
-            return _dbContext.Schedules.Find(scheduleId);
+            return _dbContext.CinemaSessions.Find(cinemaSessionId);
         }
 
-        public void SaveSchedule(CinemaSchedule cinemaSchedule)
+        public void SaveSchedule(CinemaSession cinemaSession)
         {
-            _dbContext.Schedules.Add(cinemaSchedule);
+            _dbContext.CinemaSessions.Add(cinemaSession);
             _dbContext.SaveChanges();
         }
 
-        public void EditSchedule(CinemaSchedule cinemaSchedule)
+        public void EditSchedule(CinemaSession cinemaSession)
         {
 
-            _dbContext.Entry(cinemaSchedule).State = EntityState.Modified;
+            _dbContext.Entry(cinemaSession).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
-        public void DeleteSchedule(int scheduleId)
+        public void DeleteSchedule(int cinemaSessionId)
         {
-            var schedule = _dbContext.Schedules.Find(scheduleId);
-            schedule.CinemaSessions.Clear();
-            _dbContext.Schedules.Remove(schedule);
+            var cinemaSession = _dbContext.CinemaSessions.Find(cinemaSessionId);
+            cinemaSession.CinemaSessionSpecs.Clear();
+            _dbContext.CinemaSessions.Remove(cinemaSession);
         }
     }
 }

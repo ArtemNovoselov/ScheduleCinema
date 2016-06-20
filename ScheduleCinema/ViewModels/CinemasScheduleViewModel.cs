@@ -7,7 +7,7 @@ using ScheduleCinema.Models;
 
 namespace ScheduleCinema.ViewModels
 {
-    public class CityCinemasScheduleViewModel
+    public class CinemasScheduleViewModel
     {
         [Display(Name = "Расписания по кинотеатрам")]
         public IEnumerable<IGrouping<Cinema, CinemaSchedule>> CinemaSchedulesGroups { get; set; }
