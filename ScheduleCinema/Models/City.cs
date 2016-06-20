@@ -21,6 +21,9 @@ namespace ScheduleCinema.Models
         [Required]
         [StringLength(100)]
         public string CityName { get; set; }
+        
+        [StringLength(200)]
+        public string CityPostCode { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cinema> Cinemas { get; set; }

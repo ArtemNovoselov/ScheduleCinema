@@ -5,13 +5,8 @@ namespace ScheduleCinema.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ScheduleCinemaModel : DbContext
+    public partial class ScheduleCinemaDbContext : DbContext
     {
-        public ScheduleCinemaModel()
-            : base("name=ScheduleCinemaModel")
-        {
-        }
-
         public virtual DbSet<Cinema> Cinemas { get; set; }
         public virtual DbSet<CinemaMovie> CinemaMovies { get; set; }
         public virtual DbSet<City> Cities { get; set; }

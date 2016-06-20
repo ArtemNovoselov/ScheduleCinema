@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScheduleCinema.Repositories.Interfaces;
 
 namespace ScheduleCinema.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ISheduleCinemaRepository _sheduleCinemaRepository;
+
+        public HomeController(ISheduleCinemaRepository sheduleCinemaRepository)
+        {
+            _sheduleCinemaRepository = sheduleCinemaRepository;
+        }
+
         public ActionResult Index()
         {
             return View();
