@@ -175,8 +175,9 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\ScheduleCinemaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Interfaces\ISheduleCinemaRepository.cs" />
-    <Compile Include="Repositories\SheduleCinemaSqlRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICinemaSessionsRepository.cs" />
+    <Compile Include="Repositories\CinemaSessionsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
     <Compile Include="ViewModels\CinemasScheduleViewModel.cs" />
     <Compile Include="ViewModels\EditCinemaScheduleViewModel.cs" />
   </ItemGroup>

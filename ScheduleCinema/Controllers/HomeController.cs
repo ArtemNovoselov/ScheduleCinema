@@ -11,9 +11,9 @@ namespace ScheduleCinema.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISheduleCinemaRepository _sheduleCinemaRepository;
+        private readonly ICinemaSessionsRepository _sheduleCinemaRepository;
 
-        public HomeController(ISheduleCinemaRepository sheduleCinemaRepository)
+        public HomeController(ICinemaSessionsRepository sheduleCinemaRepository)
         {
             _sheduleCinemaRepository = sheduleCinemaRepository;
         }
@@ -38,8 +38,7 @@ namespace ScheduleCinema.Controllers
 
             ViewBag.Date = formattedDate.ToString("dd.MM.yy");
             ViewBag.Title = "Расписание кинотеатров города Гадюкино за " + formattedDate.Date;
-
-            var cinemaSessions = _sheduleCinemaRepository.GetCinemsSessions(formattedDate);
+            var cinemaSessions = _sheduleCinemaRepository.GetCinemasSessions(formattedDate);
             if (cinemaSessions != null)
             {
                 scheduleView = new CinemasScheduleViewModel(cinemaSessions.ToList(), formattedDate);
