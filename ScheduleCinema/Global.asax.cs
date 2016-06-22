@@ -9,8 +9,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using EFlogger.EntityFramework6;
-using ScheduleCinema.Migrations;
-using Configuration = ScheduleCinema.Migrations.Configuration;
 
 namespace ScheduleCinema
 {
@@ -25,12 +23,12 @@ namespace ScheduleCinema
 
             EFloggerFor6.Initialize(); //TODO For Debug only!
 
-            if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
+            /*if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
             {
                 var configuration = new Configuration();
                 var migrator = new DbMigrator(configuration);
                 migrator.Update();
-            }
+            }*/
         }
     }
 }

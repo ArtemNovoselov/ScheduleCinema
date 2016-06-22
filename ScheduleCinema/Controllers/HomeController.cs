@@ -20,7 +20,7 @@ namespace ScheduleCinema.Controllers
 
         public ActionResult Index(string scheduleDate)
         {
-            CinemasScheduleViewModel scheduleView = null;
+            List<CinemaScheduleViewModel> cinemasSchedulesView = null;
             ViewBag.Error = "";
             DateTime formattedDate;
             if (string.IsNullOrEmpty(scheduleDate))
@@ -31,24 +31,25 @@ namespace ScheduleCinema.Controllers
             {
                 if (!DateTime.TryParse(scheduleDate, out formattedDate))
                 {
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     ViewBag.Error += "Ошибка формата даты\n";
-                    return View((CinemasScheduleViewModel) null);
+                    return View((List<CinemaScheduleViewModel>) null);
                 }
             }
 
             ViewBag.Date = formattedDate.ToString("dd.MM.yy");
-            ViewBag.Title = "Расписание кинотеатров города Гадюкино за " + formattedDate.Date;
+            ViewBag.Title = "Расписания кинотеатров на " + formattedDate.ToString("dd MMMM yyyy");
             var cinemaSessions = _sheduleCinemaRepository.GetCinemasSessions(formattedDate);
             if (cinemaSessions != null)
             {
-                scheduleView = new CinemasScheduleViewModel(cinemaSessions.ToList(), formattedDate);
+                cinemasSchedulesView = cinemaSessions.Select(cinemaSession => new CinemaScheduleViewModel(cinemaSession)).OrderBy(order => order.CinemaSessionCinemaName).ToList();
             }
             else
             {
-                ViewBag.Error += "Расписания за выбранную дату не найдены\n";
+                ViewBag.Error += "Расписания на выбранную дату не найдены\n";
             }
             
-            return View(scheduleView);
+            return View(cinemasSchedulesView);
         }
     }
 }

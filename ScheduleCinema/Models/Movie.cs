@@ -15,7 +15,7 @@ namespace ScheduleCinema.Models
             CinemaSessions = new HashSet<CinemaSession>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MovieId { get; set; }
 
         [Required]

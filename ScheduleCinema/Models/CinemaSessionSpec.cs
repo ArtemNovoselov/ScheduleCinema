@@ -9,7 +9,7 @@ namespace ScheduleCinema.Models
     [Table("CinemaSessionSpec")]
     public partial class CinemaSessionSpec
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CinemaSessionSpecId { get; set; }
 
         public TimeSpan CinemaSessionSpecTime { get; set; }
