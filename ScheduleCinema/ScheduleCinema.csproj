@@ -182,7 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MetaDataModels\MetaDataCinemaSession.cs" />
     <Compile Include="MetaDataModels\MetaDataCinema.cs" />
     <Compile Include="Models\Cinema.cs" />
     <Compile Include="Models\CinemaSession.cs" />
@@ -193,9 +192,10 @@
     <Compile Include="Repositories\Interfaces\ICinemaSessionsRepository.cs" />
     <Compile Include="Repositories\CinemaSessionsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
+    <Compile Include="Support\Formats.cs" />
     <Compile Include="Support\TimeFormatAndDuplicateAttribute.cs" />
     <Compile Include="ViewModels\CinemaScheduleViewModel.cs" />
-    <Compile Include="ViewModels\CinemaScheduleEditViewModel.cs" />
+    <Compile Include="ViewModels\CinemaScheduleEditSaveViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

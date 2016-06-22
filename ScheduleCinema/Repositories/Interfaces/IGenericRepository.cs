@@ -12,8 +12,9 @@ namespace ScheduleCinema.Repositories.Interfaces
     {
         IEnumerable<T> GetAll();
         IEnumerable<T> FindBy(Expression<Func<T, bool>> expression);
-        void Create(T entity);
+        int Create(T entity);
         void Edit(T entity);
         void Delete(T entity);
+        void Save();
     }
 }

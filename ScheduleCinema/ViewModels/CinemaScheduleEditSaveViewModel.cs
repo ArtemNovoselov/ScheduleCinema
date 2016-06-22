@@ -10,7 +10,7 @@ using ScheduleCinema.Support;
 
 namespace ScheduleCinema.ViewModels
 {
-    public class CinemaScheduleEditViewModel
+    public class CinemaScheduleEditSaveViewModel
     {
         [Key]
         public int CinemaSessionId { get; set; }
@@ -28,20 +28,24 @@ namespace ScheduleCinema.ViewModels
         [Display(Name = "Кинотеатр")]
         public int CinemaId { get; set; }
 
-        public CinemaScheduleEditViewModel()
+        public CinemaScheduleEditSaveViewModel()
         {
         }
 
-        public CinemaScheduleEditViewModel(CinemaSession cinemaSession)
+        public CinemaScheduleEditSaveViewModel(DateTime scheduleDate)
+        {
+            CinemaSessionDate = scheduleDate;
+        }
+
+        public CinemaScheduleEditSaveViewModel(CinemaSession cinemaSession)
         {
             CinemaSessionId = cinemaSession.CinemaSessionId;
             CinemaSessionDate = cinemaSession.CinemaSessionDate;
             CinemaSessionTimes =
                 string.Join("\n", cinemaSession.CinemaSessionSpecs.OrderBy(order => order.CinemaSessionSpecTime)
-                    .Select(spec => spec.CinemaSessionSpecTime.ToString(@"hh\:mm")));
+                    .Select(spec => spec.CinemaSessionSpecTime.ToString(Formats.TimeFormat)));
             MovieId = cinemaSession.MovieId;
             CinemaId = cinemaSession.CinemaId;
         }
-
     }
 }

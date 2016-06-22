@@ -1,4 +1,4 @@
-﻿@model ScheduleCinema.ViewModels.CinemaScheduleEditViewModel
+﻿@model ScheduleCinema.ViewModels.CinemaScheduleEditSaveViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -46,7 +46,17 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default"/>
+                    <input type="submit" value="Сохранить" class="btn btn-default"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Отменить", "Index", "Home", new {scheduleDate = Model.CinemaSessionDate.ToString("dd.MM.yy")}, null)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Удалить", "Delete", new { scheduleDate = Model.CinemaSessionId })
                 </div>
             </div>
         </div>

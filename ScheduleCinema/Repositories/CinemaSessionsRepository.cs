@@ -30,9 +30,6 @@ namespace ScheduleCinema.Repositories
 
         public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId)
         {
-            var originalSession = _dbContext.CinemaSessions.Find(cinemaSessionId);
-            _dbContext.CinemaSessionSpecs.RemoveRange(originalSession.CinemaSessionSpecs);
-            _dbContext.SaveChanges();
             foreach (var cinemaSessionSpec in cinemaSessionSpecs.Where(
                         cinemaSessionSpec =>
                             !_dbContext.CinemaSessionSpecs.Any(
@@ -42,6 +39,12 @@ namespace ScheduleCinema.Repositories
             {
                 _dbContext.CinemaSessionSpecs.Add(cinemaSessionSpec);
             }
+        }
+
+        public void RemoveSessionSpecs(int cinemaSessionId)
+        {
+            var originalSession = _dbContext.CinemaSessions.Find(cinemaSessionId);
+            _dbContext.CinemaSessionSpecs.RemoveRange(originalSession.CinemaSessionSpecs);
         }
 
         public IEnumerable<CinemaSession> GetCinemasSessions(DateTime date)
@@ -71,22 +74,26 @@ namespace ScheduleCinema.Repositories
             return _dbContext.Set<CinemaSession>().Where(expression).ToList();
         }
 
-        public void Create(CinemaSession cinemaSession)
+        public int Create(CinemaSession cinemaSession)
         {
             _dbContext.CinemaSessions.Add(cinemaSession);
-            _dbContext.SaveChanges();
+            return cinemaSession.CinemaSessionId;
         }
 
         public void Edit(CinemaSession cinemaSession)
         {
             _dbContext.Entry(cinemaSession).State = EntityState.Modified;
-            _dbContext.SaveChanges();
         }
 
         public void Delete(CinemaSession cinemaSession)
         {
             cinemaSession.CinemaSessionSpecs.Clear();
             _dbContext.CinemaSessions.Remove(cinemaSession);
+        }
+
+        public void Save()
+        {
+            _dbContext.SaveChanges();
         }
     }
 }

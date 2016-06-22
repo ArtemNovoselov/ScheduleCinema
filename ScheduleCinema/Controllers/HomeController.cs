@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ScheduleCinema.Repositories.Interfaces;
+using ScheduleCinema.Support;
 using ScheduleCinema.ViewModels;
 
 namespace ScheduleCinema.Controllers
@@ -29,7 +30,7 @@ namespace ScheduleCinema.Controllers
             }
             else
             {
-                if (!DateTime.TryParse(scheduleDate, out formattedDate))
+                if (!DateTime.TryParseExact(scheduleDate, Formats.DateFormat, null, DateTimeStyles.None, out formattedDate))
                 {
                     //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     ViewBag.Error += "Ошибка формата даты\n";
@@ -37,7 +38,7 @@ namespace ScheduleCinema.Controllers
                 }
             }
 
-            ViewBag.Date = formattedDate.ToString("dd.MM.yy");
+            ViewBag.Date = formattedDate.ToString(Formats.DateFormat);
             ViewBag.Title = "Расписания кинотеатров на " + formattedDate.ToString("dd MMMM yyyy");
             var cinemaSessions = _sheduleCinemaRepository.GetCinemasSessions(formattedDate);
             if (cinemaSessions != null)

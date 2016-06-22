@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -14,8 +15,7 @@ namespace ScheduleCinema.Support
             var unformattedValue = value as string;
             if (unformattedValue == null)
             {
-                return new ValidationResult
-                    ("Необходимо передать строку");
+                return new ValidationResult("Необходимо передать строку");
             }
             else
             {
@@ -24,15 +24,13 @@ namespace ScheduleCinema.Support
             foreach (var time in times)
             {
                 TimeSpan outTimeSpan;
-                if (!TimeSpan.TryParse(time, out outTimeSpan))
+                if (!TimeSpan.TryParseExact(time, Formats.TimeFormat, null, out outTimeSpan))
                 {
-                    return new ValidationResult
-                    ("Проверьте правильность введенного формата времени");
+                    return new ValidationResult("Проверьте правильность введенного формата времени");
                 }
                 if (times.GroupBy(t => t).Any(t => t.Count() > 1))
                 {
-                    return new ValidationResult
-                    ("Несколько одинаковых сеансов");
+                    return new ValidationResult("Несколько одинаковых сеансов");
                 }
             }
             return ValidationResult.Success;
