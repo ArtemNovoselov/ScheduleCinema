@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ScheduleCinema.Models;
+using ScheduleCinema.Support;
 
 namespace ScheduleCinema.ViewModels
 {
@@ -13,10 +15,14 @@ namespace ScheduleCinema.ViewModels
         [Key]
         public int CinemaSessionId { get; set; }
         [Display(Name = "Дата расписания")]
-        []
+        [Required(ErrorMessage = "Необходимо ввести дату")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime CinemaSessionDate { get; set; }
-        //[Display(Name = "Сеансы")]
-        //public string[] CinemaSessionTimes { get; set; }
+        [Display(Name = "Сеансы")]
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Должен быть хотя бы один сеанс")]
+        [TimeFormatAndDuplicate]
+        public string CinemaSessionTimes { get; set; }
         [Display(Name = "Фильм")]
         public int MovieId { get; set; }
         [Display(Name = "Кинотеатр")]
@@ -30,10 +36,9 @@ namespace ScheduleCinema.ViewModels
         {
             CinemaSessionId = cinemaSession.CinemaSessionId;
             CinemaSessionDate = cinemaSession.CinemaSessionDate;
-            /*CinemaSessionTimes =
-                cinemaSession.CinemaSessionSpecs.OrderBy(order => order.CinemaSessionSpecTime)
-                    .Select(spec => spec.CinemaSessionSpecTime.ToString(@"hh\:mm"))
-                    .ToArray();*/
+            CinemaSessionTimes =
+                string.Join("\n", cinemaSession.CinemaSessionSpecs.OrderBy(order => order.CinemaSessionSpecTime)
+                    .Select(spec => spec.CinemaSessionSpecTime.ToString(@"hh\:mm")));
             MovieId = cinemaSession.MovieId;
             CinemaId = cinemaSession.CinemaId;
         }

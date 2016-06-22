@@ -10,6 +10,7 @@ namespace ScheduleCinema.Repositories.Interfaces
     {
         IEnumerable<Cinema> GetCinemas();
         IEnumerable<Movie> GetMovies();
+        void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId);
         IEnumerable<CinemaSession> GetCinemasSessions(DateTime date);
         CinemaSession GetCinemaSession(int cinemaSessionId);
     }

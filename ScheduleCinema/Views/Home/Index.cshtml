@@ -1,16 +1,5 @@
 ﻿@model IEnumerable<ScheduleCinema.ViewModels.CinemaScheduleViewModel>
 
-<link href="@Url.Content("~/Content/jquery.datetimepicker.css")" rel="stylesheet" type="text/css" />
-
-@section scripts
-{
-    <script type="text/javascript" src="~/Scripts/jquery.datetimepicker.js"></script>
-    <script type="text/javascript">
-        jQuery('#scheduleDate').datetimepicker({
-            format: 'd.m.Y'
-        });
-    </script>
-}
 <div class="panel-body">
     <div class="row">
         <div class="col-md-9">

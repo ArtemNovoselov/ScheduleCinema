@@ -4,61 +4,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="@Url.Content("~/Content/jquery.datetimepicker.css")" rel="stylesheet" type="text/css" />
-
-@section scripts
-{
-    <script type="text/javascript" src="~/Scripts/jquery.datetimepicker.js"></script>
-    <script type="text/javascript">
-        jQuery('#CinemaSessionDate').datetimepicker({
-            format: 'd.m.Y'
-        });
-    </script>
-}
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         @Html.HiddenFor(model => model.CinemaSessionId)
         <div class="panel-body">
             <div class="form-group">
-                @Html.LabelFor(model => model.CinemaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.CinemaId, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.DropDownList("CinemaId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CinemaId, "", new { @class = "text-danger" })
+                    @Html.DropDownList("CinemaId", null, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.CinemaId, "", new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.MovieId, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.MovieId, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.DropDownList("MovieId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MovieId, "", new { @class = "text-danger" })
+                    @Html.DropDownList("MovieId", null, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.MovieId, "", new {@class = "text-danger"})
                 </div>
             </div>
-            
-                    <div class="form-group">
-                    @Html.LabelFor(model => model.CinemaSessionDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CinemaSessionDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CinemaSessionDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                @*<div class="form-group">
-        @Html.LabelFor(model => model.CinemaSessionSpecs, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.CinemaSessionTimes)
-            @Html.ValidationMessageFor(model => model.CinemaSessionTimes, "", new { @class = "text-danger" })
-        </div>
-    </div>
-                *@
+            <div class="form-group">
+                @Html.LabelFor(model => model.CinemaSessionDate, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CinemaSessionDate, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.CinemaSessionDate, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CinemaSessionTimes, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.CinemaSessionTimes, new {cols = "50", rows = "15"})
+                    @Html.ValidationMessageFor(model => model.CinemaSessionTimes, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default"/>
                 </div>
             </div>
         </div>

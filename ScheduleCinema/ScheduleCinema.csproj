@@ -193,6 +193,7 @@
     <Compile Include="Repositories\Interfaces\ICinemaSessionsRepository.cs" />
     <Compile Include="Repositories\CinemaSessionsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
+    <Compile Include="Support\TimeFormatAndDuplicateAttribute.cs" />
     <Compile Include="ViewModels\CinemaScheduleViewModel.cs" />
     <Compile Include="ViewModels\CinemaScheduleEditViewModel.cs" />
   </ItemGroup>

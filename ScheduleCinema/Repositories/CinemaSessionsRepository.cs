@@ -27,6 +27,23 @@ namespace ScheduleCinema.Repositories
         {
             return _dbContext.Movies.Include(movie => movie.CinemaSessions).ToList();
         }
+
+        public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId)
+        {
+            var originalSession = _dbContext.CinemaSessions.Find(cinemaSessionId);
+            _dbContext.CinemaSessionSpecs.RemoveRange(originalSession.CinemaSessionSpecs);
+            _dbContext.SaveChanges();
+            foreach (var cinemaSessionSpec in cinemaSessionSpecs.Where(
+                        cinemaSessionSpec =>
+                            !_dbContext.CinemaSessionSpecs.Any(
+                                spec =>
+                                    spec.CinemaSessionId == cinemaSessionSpec.CinemaSessionId &&
+                                    spec.CinemaSessionSpecTime == cinemaSessionSpec.CinemaSessionSpecTime)))
+            {
+                _dbContext.CinemaSessionSpecs.Add(cinemaSessionSpec);
+            }
+        }
+
         public IEnumerable<CinemaSession> GetCinemasSessions(DateTime date)
         {
             if (_dbContext.CinemaSessions.Any(cinemaSession => cinemaSession.CinemaSessionDate == date))
@@ -62,7 +79,6 @@ namespace ScheduleCinema.Repositories
 
         public void Edit(CinemaSession cinemaSession)
         {
-
             _dbContext.Entry(cinemaSession).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
