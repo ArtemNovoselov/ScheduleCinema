@@ -12,12 +12,16 @@ namespace ScheduleCinema.ViewModels
     {
         [Key]
         public int CinemaSessionId { get; set; }
+
         [Display(Name = "Фильм")]
         public string CinemaSessionMovieName { get; set; }
+
         [Display(Name = "Кинотеатр")]
         public string CinemaSessionCinemaName { get; set; }
+
         [Display(Name = "Сеансы")]
         public string CinemaSessionTimes { get; set; }
+
         [Display(Name = "Дата")]
         public string CinemaSessionDate { get; set; }
 

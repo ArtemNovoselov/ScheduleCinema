@@ -33,7 +33,7 @@ namespace ScheduleCinema.Controllers
                 if (!DateTime.TryParseExact(scheduleDate, Formats.DateFormat, null, DateTimeStyles.None, out formattedDate))
                 {
                     //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    ViewBag.Error += "Ошибка формата даты\n";
+                    ViewBag.Error += Formats.ErrorDateFormatMessage + "\n";
                     return View((List<CinemaScheduleViewModel>) null);
                 }
             }

@@ -21,14 +21,7 @@ namespace ScheduleCinema
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            EFloggerFor6.Initialize(); //TODO For Debug only!
-
-            /*if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
-            {
-                var configuration = new Configuration();
-                var migrator = new DbMigrator(configuration);
-                migrator.Update();
-            }*/
+            //EFloggerFor6.Initialize(); //TODO For Debug only!
         }
     }
 }

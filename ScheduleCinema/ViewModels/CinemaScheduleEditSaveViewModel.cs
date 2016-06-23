@@ -14,30 +14,41 @@ namespace ScheduleCinema.ViewModels
     {
         [Key]
         public int CinemaSessionId { get; set; }
+
         [Display(Name = "Дата расписания")]
         [Required(ErrorMessage = "Необходимо ввести дату")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        [DisplayFormat(DataFormatString = Formats.DateFormatAttribute, ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        [Range(typeof(DateTime), "01.01.2016", "01.01.2018", ErrorMessage = "Дата должна быть от 01.01.2016 до 01.01.2018")]
         public DateTime CinemaSessionDate { get; set; }
+
         [Display(Name = "Сеансы")]
-        [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Должен быть хотя бы один сеанс")]
+        [DataType(DataType.MultilineText)]
         [TimeFormatAndDuplicate]
         public string CinemaSessionTimes { get; set; }
+
         [Display(Name = "Фильм")]
         public int MovieId { get; set; }
+
         [Display(Name = "Кинотеатр")]
         public int CinemaId { get; set; }
+        
+        public SelectList Movies { get; set; }
+        
+        public SelectList Cinemas { get; set; }
 
         public CinemaScheduleEditSaveViewModel()
         {
         }
 
-        public CinemaScheduleEditSaveViewModel(DateTime scheduleDate)
+        public CinemaScheduleEditSaveViewModel(DateTime scheduleDate, IEnumerable<Cinema> cinemas, IEnumerable<Movie> movies)
         {
             CinemaSessionDate = scheduleDate;
+            Movies = new SelectList(movies, "MovieId", "MovieName");
+            Cinemas = new SelectList(cinemas, "CinemaId", "CinemaName");
         }
 
-        public CinemaScheduleEditSaveViewModel(CinemaSession cinemaSession)
+        public CinemaScheduleEditSaveViewModel(CinemaSession cinemaSession, IEnumerable<Cinema> cinemas, IEnumerable<Movie> movies)
         {
             CinemaSessionId = cinemaSession.CinemaSessionId;
             CinemaSessionDate = cinemaSession.CinemaSessionDate;
@@ -46,6 +57,9 @@ namespace ScheduleCinema.ViewModels
                     .Select(spec => spec.CinemaSessionSpecTime.ToString(Formats.TimeFormat)));
             MovieId = cinemaSession.MovieId;
             CinemaId = cinemaSession.CinemaId;
+
+            Movies = new SelectList(movies, "MovieId", "MovieName", cinemaSession.MovieId);
+            Cinemas = new SelectList(cinemas, "CinemaId", "CinemaName", cinemaSession.CinemaId);
         }
     }
 }

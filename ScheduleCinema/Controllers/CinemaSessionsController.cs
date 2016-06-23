@@ -30,10 +30,7 @@ namespace ScheduleCinema.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ViewBag.CinemaId = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName");
-            ViewBag.MovieId = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName");
-
-            return View(new CinemaScheduleEditSaveViewModel(formattedDate));
+            return View(new CinemaScheduleEditSaveViewModel(formattedDate, _sheduleCinemaRepository.GetCinemas(), _sheduleCinemaRepository.GetMovies()));
         }
 
         [HttpPost]
@@ -65,8 +62,8 @@ namespace ScheduleCinema.Controllers
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }
 
-            ViewBag.CinemaId = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
-            ViewBag.MovieId = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
+            editViewModel.Cinemas = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
+            editViewModel.Movies = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
             return View(editViewModel);
         }
         
@@ -85,9 +82,7 @@ namespace ScheduleCinema.Controllers
 
             ViewBag.Title = "Редактирование";
 
-            var editViewModel = new CinemaScheduleEditSaveViewModel(cinemaSession);
-            ViewBag.CinemaId = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", cinemaSession.CinemaId);
-            ViewBag.MovieId = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", cinemaSession.MovieId);
+            var editViewModel = new CinemaScheduleEditSaveViewModel(cinemaSession, _sheduleCinemaRepository.GetCinemas(), _sheduleCinemaRepository.GetMovies());
 
             return View(editViewModel);
         }
@@ -120,17 +115,19 @@ namespace ScheduleCinema.Controllers
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }
 
-            ViewBag.CinemaId = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
-            ViewBag.MovieId = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
+            editViewModel.Cinemas = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
+            editViewModel.Movies = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
             return View(editViewModel);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int cinemaSessionId)
         {
-            CinemaSession cinemaSession = _sheduleCinemaRepository.GetCinemaSession(id);
+            CinemaSession cinemaSession = _sheduleCinemaRepository.GetCinemaSession(cinemaSessionId);
+            _sheduleCinemaRepository.RemoveSessionSpecs(cinemaSessionId);
             _sheduleCinemaRepository.Delete(cinemaSession);
+            _sheduleCinemaRepository.Save();
             return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.Practices.Unity.Configuration;
 using ScheduleCinema.Repositories;
 using ScheduleCinema.Repositories.Interfaces;
 
-namespace ScheduleCinema.App_Start
+namespace ScheduleCinema
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.

@@ -182,7 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MetaDataModels\MetaDataCinema.cs" />
     <Compile Include="Models\Cinema.cs" />
     <Compile Include="Models\CinemaSession.cs" />
     <Compile Include="Models\CinemaSessionSpec.cs" />
@@ -237,9 +236,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CinemaSessions\Create.cshtml" />
     <Content Include="Views\CinemaSessions\Edit.cshtml" />
+    <Content Include="Views\Shared\_CinemaSessionForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="MetaDataModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

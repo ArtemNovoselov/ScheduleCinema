@@ -51,7 +51,11 @@ namespace ScheduleCinema.Repositories
         {
             if (_dbContext.CinemaSessions.Any(cinemaSession => cinemaSession.CinemaSessionDate == date))
             {
-                return _dbContext.CinemaSessions.Include(cinemaSession => cinemaSession.Cinema).Where(cinemaSession => cinemaSession.CinemaSessionDate == date);
+                return
+                    _dbContext.CinemaSessions.Include(cinemaSession => cinemaSession.Cinema)
+                        .Include(cinemaSession => cinemaSession.CinemaSessionSpecs)
+                        .Include(cinemaSession => cinemaSession.Movie)
+                        .Where(cinemaSession => cinemaSession.CinemaSessionDate == date);
             }
             else
             {
@@ -87,7 +91,6 @@ namespace ScheduleCinema.Repositories
 
         public void Delete(CinemaSession cinemaSession)
         {
-            cinemaSession.CinemaSessionSpecs.Clear();
             _dbContext.CinemaSessions.Remove(cinemaSession);
         }
 
