@@ -6,7 +6,7 @@
             @using (Html.BeginForm(null, null, FormMethod.Get))
             {
                 <div class="col-md-4">
-                    Дата: <input id="scheduleDate" name="scheduleDate" type="text" value="@ViewBag.Date"/>
+                    @Html.DisplayNameFor(model => model.CinemaSessionDate): <input id="scheduleDate" name="scheduleDate" type="text" value="@ViewBag.Date"/>
                 </div>
                 <div class="col-md-4">
                     <input id="editschedule" type="submit" value="Показать" formaction="@Url.Action("Index")"/>
@@ -39,9 +39,9 @@ else
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-                            <th>@Html.Label("Кинотеатр")</th>
-                            <th>@Html.Label("Фильм")</th>
-                            <th>@Html.Label("Сеансы")</th>
+                            <th>@Html.DisplayNameFor(model => model.CinemaSessionCinemaName)</th>
+                            <th>@Html.DisplayNameFor(model => model.CinemaSessionMovieName)</th>
+                            <th>@Html.DisplayNameFor(model => model.CinemaSessionTimes)</th>
                             <th></th>
                         </tr>
                         </thead>
