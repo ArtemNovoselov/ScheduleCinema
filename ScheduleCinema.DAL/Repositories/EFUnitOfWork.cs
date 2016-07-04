@@ -12,32 +12,62 @@ namespace ScheduleCinema.DAL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private readonly ScheduleCinemaDbContext _db;
-        private CinemaSessionsRepository _cinemaSessionRepository;
-        private CinemasRepository _cinemaSessionRepository;
-        private CinemaSessionsRepository _cinemaSessionRepository;
-        private CinemaSessionsRepository _cinemaSessionRepository;
+        private CinemaSessionsRepository _cinemaSessionsRepository;
+        private CinemasRepository _cinemasRepository;
+        private MoviesRepository _moviesRepository;
+        private CinemaSessionSpecsRepository _cinemaSessionSpecsRepository;
 
         public EFUnitOfWork(string connectionString)
         {
             _db = new ScheduleCinemaDbContext(connectionString);
         }
 
-        public IGenericRepository<Cinema> Cinemas { get; }
+        public IGenericRepository<Cinema> Cinemas
+        {
+            get
+            {
+                if (_cinemasRepository == null)
+                {
+                    _cinemasRepository = new CinemasRepository(_db);
+                }
+                return _cinemasRepository;
+            }
+        }
 
         public IGenericRepository<CinemaSession> CinemaSessions
         {
             get
             {
-                if (_cinemaSessionRepository == null)
+                if (_cinemaSessionsRepository == null)
                 {
-                    _cinemaSessionRepository = new CinemaSessionsRepository(_db);
+                    _cinemaSessionsRepository = new CinemaSessionsRepository(_db);
                 }
-                return _cinemaSessionRepository;
+                return _cinemaSessionsRepository;
             }
         }
 
-        public IGenericRepository<CinemaSessionSpec> CinemaSessionSpecs { get; }
-        public IGenericRepository<Movie> Movies { get; }
+        public IGenericRepository<CinemaSessionSpec> CinemaSessionSpecs
+        {
+            get
+            {
+                if (_cinemaSessionSpecsRepository == null)
+                {
+                    _cinemaSessionSpecsRepository = new CinemaSessionSpecsRepository(_db);
+                }
+                return _cinemaSessionSpecsRepository;
+            }
+        }
+
+        public IGenericRepository<Movie> Movies {
+            get
+            {
+                if (_moviesRepository == null)
+                {
+                    _moviesRepository = new MoviesRepository(_db);
+                }
+                return _moviesRepository;
+            }
+        }
 
         public void Save()
         {

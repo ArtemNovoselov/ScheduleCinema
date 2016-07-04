@@ -9,94 +9,44 @@ using ScheduleCinema.DAL.Models;
 
 namespace ScheduleCinema.DAL.Repositories
 {
-    public class CinemaSessionsRepository : ICinemaSessionsRepository
+    public class MoviesRepository : IGenericRepository<Movie>
     {
         private readonly ScheduleCinemaDbContext _dbContext;
 
-        public CinemaSessionsRepository(ScheduleCinemaDbContext dbContext)
+        public MoviesRepository(ScheduleCinemaDbContext dbContext)
         {
             _dbContext = dbContext;
         }
         
-        public IEnumerable<Cinema> GetCinemas()
+        public IEnumerable<Movie> GetAll()
         {
-            return _dbContext.Cinemas.Include(cinema => cinema.CinemaSessions).ToList();
+            return _dbContext.Movies.ToList();
         }
 
-        public IEnumerable<Movie> GetMovies()
+        public Movie Get(int movieId)
         {
-            return _dbContext.Movies.Include(movie => movie.CinemaSessions).ToList();
+            return _dbContext.Movies.Find(movieId);
         }
 
-        public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId)
+        public IEnumerable<Movie> FindBy(Expression<Func<Movie, bool>> expression)
         {
-            foreach (var cinemaSessionSpec in cinemaSessionSpecs.Where(
-                        cinemaSessionSpec =>
-                            !_dbContext.CinemaSessionSpecs.Any(
-                                spec =>
-                                    spec.CinemaSessionId == cinemaSessionSpec.CinemaSessionId &&
-                                    spec.CinemaSessionSpecTime == cinemaSessionSpec.CinemaSessionSpecTime)))
-            {
-                _dbContext.CinemaSessionSpecs.Add(cinemaSessionSpec);
-            }
+            return _dbContext.Set<Movie>().Where(expression).ToList();
         }
 
-        public void RemoveSessionSpecs(int cinemaSessionId)
+        public int Create(Movie movie)
         {
-            var originalSession = _dbContext.CinemaSessions.Find(cinemaSessionId);
-            _dbContext.CinemaSessionSpecs.RemoveRange(originalSession.CinemaSessionSpecs);
+            _dbContext.Movies.Add(movie);
+            return movie.MovieId;
         }
 
-        public IEnumerable<CinemaSession> GetCinemasSessions(DateTime date)
+        public void Edit(Movie movie)
         {
-            if (_dbContext.CinemaSessions.Any(cinemaSession => cinemaSession.CinemaSessionDate == date))
-            {
-                return
-                    _dbContext.CinemaSessions.Include(cinemaSession => cinemaSession.Cinema)
-                        .Include(cinemaSession => cinemaSession.CinemaSessionSpecs)
-                        .Include(cinemaSession => cinemaSession.Movie)
-                        .Where(cinemaSession => cinemaSession.CinemaSessionDate == date);
-            }
-            else
-            {
-                return null;
-            }
+            _dbContext.Entry(movie).State = EntityState.Modified;
         }
 
-        public CinemaSession GetCinemaSession(int cinemaSessionId)
+        public void Delete(Movie movie)
         {
-            return _dbContext.CinemaSessions.Find(cinemaSessionId);
-        }
-
-        public IEnumerable<CinemaSession> GetAll()
-        {
-            return _dbContext.CinemaSessions.ToList();
-        }
-
-        public IEnumerable<CinemaSession> FindBy(Expression<Func<CinemaSession, bool>> expression)
-        {
-            return _dbContext.Set<CinemaSession>().Where(expression).ToList();
-        }
-
-        public int Create(CinemaSession cinemaSession)
-        {
-            _dbContext.CinemaSessions.Add(cinemaSession);
-            return cinemaSession.CinemaSessionId;
-        }
-
-        public void Edit(CinemaSession cinemaSession)
-        {
-            _dbContext.Entry(cinemaSession).State = EntityState.Modified;
-        }
-
-        public void Delete(CinemaSession cinemaSession)
-        {
-            _dbContext.CinemaSessions.Remove(cinemaSession);
-        }
-
-        public void Save()
-        {
-            _dbContext.SaveChanges();
+            _dbContext.Movies.Remove(movie);
         }
     }
 }
