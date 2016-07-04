@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ScheduleCinema.DAL.EF;
 using ScheduleCinema.DAL.Interfaces;
-using ScheduleCinema.DAL.Models;
+using ScheduleCinema.Models;
 
 namespace ScheduleCinema.DAL.Repositories
 {

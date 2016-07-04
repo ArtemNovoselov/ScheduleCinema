@@ -1,5 +1,5 @@
 using System.Data.Entity;
-using ScheduleCinema.DAL.Models;
+using ScheduleCinema.Models;
 
 namespace ScheduleCinema.DAL.EF
 {

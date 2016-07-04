@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleCinema.DAL", "Sched
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleCinema.BLL", "ScheduleCinema.BLL\ScheduleCinema.BLL.csproj", "{BAEFAE96-907E-4AC6-BFAB-58A629B24F15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleCinema.Models", "ScheduleCinema.Models\ScheduleCinema.Models.csproj", "{5E6E1C3D-15E4-45C2-B717-E851D864D694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BAEFAE96-907E-4AC6-BFAB-58A629B24F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAEFAE96-907E-4AC6-BFAB-58A629B24F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAEFAE96-907E-4AC6-BFAB-58A629B24F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E6E1C3D-15E4-45C2-B717-E851D864D694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E6E1C3D-15E4-45C2-B717-E851D864D694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E6E1C3D-15E4-45C2-B717-E851D864D694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E6E1C3D-15E4-45C2-B717-E851D864D694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

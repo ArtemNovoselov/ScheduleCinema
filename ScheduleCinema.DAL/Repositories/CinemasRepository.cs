@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using ScheduleCinema.DAL.EF;
 using ScheduleCinema.DAL.Interfaces;
-using ScheduleCinema.DAL.Models;
+using ScheduleCinema.Models;
 
 namespace ScheduleCinema.DAL.Repositories
 {
