@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ScheduleCinema.Repositories.Interfaces;
+using ScheduleCinema.BLL.Interfaces;
 using ScheduleCinema.Support;
 using ScheduleCinema.ViewModels;
 
@@ -12,11 +12,11 @@ namespace ScheduleCinema.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICinemaSessionsRepository _sheduleCinemaRepository;
+        private readonly ICinemaSessionService _cinemaSessionService;
 
-        public HomeController(ICinemaSessionsRepository sheduleCinemaRepository)
+        public HomeController(ICinemaSessionService cinemaSessionService)
         {
-            _sheduleCinemaRepository = sheduleCinemaRepository;
+            _cinemaSessionService = cinemaSessionService;
         }
 
         public ActionResult Index(string scheduleDate)
@@ -40,7 +40,7 @@ namespace ScheduleCinema.Controllers
 
             ViewBag.Date = formattedDate.ToString(Formats.DateFormat);
             ViewBag.Title = "Расписания кинотеатров на " + formattedDate.ToString("dd MMMM yyyy");
-            var cinemaSessions = _sheduleCinemaRepository.GetCinemasSessions(formattedDate);
+            var cinemaSessions = _cinemaSessionService.GetCinemasSessions(formattedDate);
             if (cinemaSessions != null)
             {
                 cinemasSchedulesView = cinemaSessions.Select(cinemaSession => new CinemaScheduleViewModel(cinemaSession)).OrderBy(order => order.CinemaSessionCinemaName).ToList();
@@ -51,6 +51,11 @@ namespace ScheduleCinema.Controllers
             }
             
             return View(cinemasSchedulesView);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            _cinemaSessionService.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

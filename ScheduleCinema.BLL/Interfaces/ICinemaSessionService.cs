@@ -7,7 +7,7 @@ using ScheduleCinema.Models;
 
 namespace ScheduleCinema.BLL.Interfaces
 {
-    interface ICinemaSessionService //Service! Not repository!
+    public interface ICinemaSessionService //Service! Not repository!
     {
         IEnumerable<Cinema> GetCinemas();
         IEnumerable<Movie> GetMovies();
@@ -15,6 +15,9 @@ namespace ScheduleCinema.BLL.Interfaces
         void RemoveSessionSpecs(int cinemaSessionId);
         IEnumerable<CinemaSession> GetCinemasSessions(DateTime date);
         CinemaSession GetCinemaSession(int cinemaSessionId);
+        int AddCinemaSession(CinemaSession cinemaSession);
+        void RemoveCinemaSession(CinemaSession cinemaSession);
+        void EditCinemaSession(CinemaSession cinemaSession);
         void Dispose();
     }
 }

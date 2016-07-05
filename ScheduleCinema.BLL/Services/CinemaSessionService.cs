@@ -9,7 +9,7 @@ using ScheduleCinema.Models;
 
 namespace ScheduleCinema.BLL.Services
 {
-    class CinemaSessionService : ICinemaSessionService
+    public class CinemaSessionService : ICinemaSessionService
     {
         private IUnitOfWork Database { get; set; }
 
@@ -36,6 +36,7 @@ namespace ScheduleCinema.BLL.Services
             {
                 Database.CinemaSessionSpecs.Create(cinemaSessionSpec);
             }
+            Database.Save();
         }
 
         public void RemoveSessionSpecs(int cinemaSessionId)
@@ -45,6 +46,26 @@ namespace ScheduleCinema.BLL.Services
             {
                 Database.CinemaSessionSpecs.Delete(cinemaSessionSpec);
             }
+            Database.Save();
+        }
+
+        public int AddCinemaSession(CinemaSession cinemaSession)
+        {
+            var sessionId = Database.CinemaSessions.Create(cinemaSession);
+            Database.Save();
+            return sessionId;
+        }
+
+        public void RemoveCinemaSession(CinemaSession cinemaSession)
+        {
+            Database.CinemaSessions.Create(cinemaSession);
+            Database.Save();
+        }
+
+        public void EditCinemaSession(CinemaSession cinemaSession)
+        {
+            Database.CinemaSessions.Edit(cinemaSession);
+            Database.Save();
         }
 
         public IEnumerable<CinemaSession> GetCinemasSessions(DateTime date)

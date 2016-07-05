@@ -7,8 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ScheduleCinema.BLL.Interfaces;
 using ScheduleCinema.Models;
-using ScheduleCinema.Repositories.Interfaces;
 using ScheduleCinema.Support;
 using ScheduleCinema.ViewModels;
 
@@ -16,10 +16,10 @@ namespace ScheduleCinema.Controllers
 {
     public class CinemaSessionsController : Controller
     {
-        private readonly ICinemaSessionsRepository _sheduleCinemaRepository;
-        public CinemaSessionsController(ICinemaSessionsRepository sheduleCinemaRepository)
+        private readonly ICinemaSessionService _cinemaSessionService;
+        public CinemaSessionsController(ICinemaSessionService cinemaSessionService)
         {
-            _sheduleCinemaRepository = sheduleCinemaRepository;
+            _cinemaSessionService = cinemaSessionService;
         }
         
         public ActionResult Create(string scheduleDate)
@@ -30,7 +30,7 @@ namespace ScheduleCinema.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View(new CinemaScheduleEditSaveViewModel(formattedDate, _sheduleCinemaRepository.GetCinemas(), _sheduleCinemaRepository.GetMovies()));
+            return View(new CinemaScheduleEditSaveViewModel(formattedDate, _cinemaSessionService.GetCinemas(), _cinemaSessionService.GetMovies()));
         }
 
         [HttpPost]
@@ -55,15 +55,14 @@ namespace ScheduleCinema.Controllers
                                 CinemaSessionSpecTime = TimeSpan.ParseExact(time, Formats.TimeFormat, CultureInfo.InvariantCulture)
                             }).ToList();
 
-                var newSessionId = _sheduleCinemaRepository.Create(cinemaSession);
-                _sheduleCinemaRepository.AddSessionSpecs(newSessionSpecs, newSessionId);
-                _sheduleCinemaRepository.Save();
+                var newSessionId = _cinemaSessionService.AddCinemaSession(cinemaSession);
+                _cinemaSessionService.AddSessionSpecs(newSessionSpecs, newSessionId);
 
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }
 
-            editViewModel.Cinemas = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
-            editViewModel.Movies = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
+            editViewModel.Cinemas = new SelectList(_cinemaSessionService.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
+            editViewModel.Movies = new SelectList(_cinemaSessionService.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
             return View(editViewModel);
         }
         
@@ -73,7 +72,7 @@ namespace ScheduleCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CinemaSession cinemaSession = _sheduleCinemaRepository.GetCinemaSession((int)id);
+            CinemaSession cinemaSession = _cinemaSessionService.GetCinemaSession((int)id);
             
             if (cinemaSession == null)
             {
@@ -82,7 +81,7 @@ namespace ScheduleCinema.Controllers
 
             ViewBag.Title = "Редактирование";
 
-            var editViewModel = new CinemaScheduleEditSaveViewModel(cinemaSession, _sheduleCinemaRepository.GetCinemas(), _sheduleCinemaRepository.GetMovies());
+            var editViewModel = new CinemaScheduleEditSaveViewModel(cinemaSession, _cinemaSessionService.GetCinemas(), _cinemaSessionService.GetMovies());
 
             return View(editViewModel);
         }
@@ -93,7 +92,7 @@ namespace ScheduleCinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cinemaSession = _sheduleCinemaRepository.GetCinemaSession(editViewModel.CinemaSessionId);
+                var cinemaSession = _cinemaSessionService.GetCinemaSession(editViewModel.CinemaSessionId);
                 cinemaSession.CinemaSessionDate = editViewModel.CinemaSessionDate;
                 cinemaSession.CinemaId = editViewModel.CinemaId;
                 cinemaSession.MovieId = editViewModel.MovieId;
@@ -107,16 +106,14 @@ namespace ScheduleCinema.Controllers
                                 CinemaSessionSpecTime = TimeSpan.Parse(time)
                             }).ToList();
 
-                _sheduleCinemaRepository.RemoveSessionSpecs(editViewModel.CinemaSessionId);
-                _sheduleCinemaRepository.Save();
-                _sheduleCinemaRepository.AddSessionSpecs(newSessionSpecs, editViewModel.CinemaSessionId);
-                _sheduleCinemaRepository.Edit(cinemaSession);
-                _sheduleCinemaRepository.Save();
+                _cinemaSessionService.RemoveSessionSpecs(editViewModel.CinemaSessionId);
+                _cinemaSessionService.AddSessionSpecs(newSessionSpecs, editViewModel.CinemaSessionId);
+                _cinemaSessionService.EditCinemaSession(cinemaSession);
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }
 
-            editViewModel.Cinemas = new SelectList(_sheduleCinemaRepository.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
-            editViewModel.Movies = new SelectList(_sheduleCinemaRepository.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
+            editViewModel.Cinemas = new SelectList(_cinemaSessionService.GetCinemas(), "CinemaId", "CinemaName", editViewModel.CinemaId);
+            editViewModel.Movies = new SelectList(_cinemaSessionService.GetMovies(), "MovieId", "MovieName", editViewModel.MovieId);
             return View(editViewModel);
         }
         
@@ -124,10 +121,9 @@ namespace ScheduleCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int cinemaSessionId)
         {
-            CinemaSession cinemaSession = _sheduleCinemaRepository.GetCinemaSession(cinemaSessionId);
-            _sheduleCinemaRepository.RemoveSessionSpecs(cinemaSessionId);
-            _sheduleCinemaRepository.Delete(cinemaSession);
-            _sheduleCinemaRepository.Save();
+            CinemaSession cinemaSession = _cinemaSessionService.GetCinemaSession(cinemaSessionId);
+            _cinemaSessionService.RemoveSessionSpecs(cinemaSessionId);
+            _cinemaSessionService.RemoveCinemaSession(cinemaSession);
             return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
         }
     }
