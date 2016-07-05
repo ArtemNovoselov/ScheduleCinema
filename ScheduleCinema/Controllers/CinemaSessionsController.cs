@@ -126,5 +126,11 @@ namespace ScheduleCinema.Controllers
             _cinemaSessionService.RemoveCinemaSession(cinemaSession);
             return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _cinemaSessionService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

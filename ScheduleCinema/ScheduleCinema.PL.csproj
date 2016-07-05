@@ -178,10 +178,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Support\DateValidation.cs" />
+    <Compile Include="Support\ErrorMessages.cs" />
     <Compile Include="Support\Formats.cs" />
     <Compile Include="Support\TimeFormatAndDuplicateAttribute.cs" />
     <Compile Include="Util\NinjectDependencyResolver.cs" />
-    <Compile Include="ViewModels\CinemaScheduleViewModel.cs" />
+    <Compile Include="ViewModels\CinemaScheduleViewModel .cs" />
     <Compile Include="ViewModels\CinemaScheduleEditSaveViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

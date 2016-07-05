@@ -11,7 +11,5 @@ namespace ScheduleCinema.Support
         public const string DateFormatAttribute = @"{0:dd.MM.yyyy}";
         public const string TimeFormat = @"hh\:mm";
         public const string TimeFormatHtml = @"hh\:mm";
-
-        public const string ErrorDateFormatMessage = @"Ошибка формата даты. Должен быть: dd.MM.yyyy";
     }
 }

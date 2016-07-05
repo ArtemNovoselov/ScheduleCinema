@@ -18,19 +18,18 @@
         </div>
     </div>
 </div>
-@if (Model == null)
-{
+
     <div class="panel-body">
         <div class="row">
             <div class="text-info">
                 <p>
-                    @ViewBag.Error
+                    @Html.ValidationSummary()
                 </p>
             </div>
         </div>
     </div>
-}
-else
+
+@if (Model.Any())
 {
     <div class="panel-body">
         <div class="row">
