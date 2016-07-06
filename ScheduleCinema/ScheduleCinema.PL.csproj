@@ -182,7 +182,7 @@
     <Compile Include="Support\ErrorMessages.cs" />
     <Compile Include="Support\Formats.cs" />
     <Compile Include="Support\DataAnnotationAttributes\TimeFormatAndDuplicateAttribute.cs" />
-    <Compile Include="Support\HtmlHelpers\SessionsTable.cs" />
+    <Compile Include="Support\HtmlHelpers\StringJoiner.cs" />
     <Compile Include="Util\NinjectDependencyResolver.cs" />
     <Compile Include="ViewModels\CinemaScheduleViewModel .cs" />
     <Compile Include="ViewModels\CinemaScheduleEditSaveViewModel.cs" />

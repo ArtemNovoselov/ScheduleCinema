@@ -35,7 +35,7 @@
                                 @session.Movie.MovieName
                             </td>
                             <td>
-                                @string.Join(",", session.CinemaSessionSpecs.Select(spec => spec.CinemaSessionSpecTime))
+                                @Html.Join(session.CinemaSessionSpecs.Select(spec => spec.CinemaSessionSpecTime.ToString()))
                             </td>
                             <td>
                                 @Html.ActionLink("Редактировать", "Edit", "CinemaSessions", new {id = session.CinemaSessionId}, null)

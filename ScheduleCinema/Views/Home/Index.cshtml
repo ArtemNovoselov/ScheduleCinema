@@ -1,6 +1,10 @@
 ﻿@using ScheduleCinema.Support.HtmlHelpers
 @model ScheduleCinema.ViewModels.CinemaScheduleViewModel
 
+@section Title{
+    <title>@Html.DisplayTextFor(model => model.Title)</title>
+}
+
 <div class="panel-body">
     <div class="row">
         <div class="col-md-9">
