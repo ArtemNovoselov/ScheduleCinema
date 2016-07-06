@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ScheduleCinema.Models;
 using ScheduleCinema.Support;
+using ScheduleCinema.Support.DataAnnotationAttributes;
 
 namespace ScheduleCinema.ViewModels
 {

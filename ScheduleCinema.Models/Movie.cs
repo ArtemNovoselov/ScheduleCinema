@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,7 @@ namespace ScheduleCinema.Models
 
         [Required]
         [StringLength(200)]
+        [DisplayName("Фильм")]
         public string MovieName { get; set; }
 
         [Required]

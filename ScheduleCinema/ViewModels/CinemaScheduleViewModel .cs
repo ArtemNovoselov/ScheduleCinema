@@ -10,31 +10,21 @@ namespace ScheduleCinema.ViewModels
 {
     public class CinemaScheduleViewModel
     {
-        [Key]
-        public int CinemaSessionId { get; set; }
+        [Display(Name = "Название")]
+        public string Title { get; set; }
 
-        [Display(Name = "Фильм")]
-        public string CinemaSessionMovieName { get; set; }
-
-        [Display(Name = "Кинотеатр")]
-        public string CinemaSessionCinemaName { get; set; }
-
-        [Display(Name = "Сеансы")]
-        public string CinemaSessionTimes { get; set; }
+        [Display(Name = "Список сеансов")]
+        [MinLength(1, ErrorMessage = ErrorMessages.ErrorDateSessionsMessage)]
+        public IEnumerable<CinemaSession> CinemaSessions { get; set; }
 
         [Display(Name = "Дата")]
-        public string CinemaSessionDate { get; set; }
+        public string CinemaScheduleDate { get; set; }
 
-        public CinemaScheduleViewModel(CinemaSession cinemaSession)
+        public CinemaScheduleViewModel(IEnumerable<CinemaSession> cinemaSessions, string scheduleDate)
         {
-            CinemaSessionId = cinemaSession.CinemaSessionId;
-            CinemaSessionMovieName = cinemaSession.Movie.MovieName;
-            CinemaSessionCinemaName = cinemaSession.Cinema.CinemaName;
-            CinemaSessionDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat);
-            CinemaSessionTimes = string.Join(",",
-                cinemaSession.CinemaSessionSpecs.OrderBy(order => order.CinemaSessionSpecTime)
-                    .Select(spec => spec.CinemaSessionSpecTime.ToString(Formats.TimeFormat))
-                    .ToArray());
+            CinemaScheduleDate = scheduleDate;
+            CinemaSessions = cinemaSessions;
+            Title = "Расписания кинотеатров на " + scheduleDate;
         }
     }
 }

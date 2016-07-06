@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,7 @@ namespace ScheduleCinema.Models
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Кинотеатр")]
         public string CinemaName { get; set; }
         
         public virtual ICollection<CinemaSession> CinemaSessions { get; set; }

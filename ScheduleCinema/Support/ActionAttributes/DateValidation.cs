@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Web.Mvc;
 
-namespace ScheduleCinema.Support
+namespace ScheduleCinema.Support.ActionAttributes
 {
     public class DateValidation : ActionFilterAttribute
     {
@@ -10,12 +10,12 @@ namespace ScheduleCinema.Support
         {
             var descriptor = context.ActionDescriptor;
 
-            if (descriptor != null && descriptor.ActionName == "Index" && descriptor.GetParameters().Length == 1)
+            if (descriptor != null && descriptor.ControllerDescriptor.ControllerName == "Home" && descriptor.ActionName == "Index" && descriptor.GetParameters().Length == 1 && descriptor.GetParameters()[0].ParameterType == typeof(string))
             {
-                var date = (string) context.ActionParameters["scheduleDate"];
+                var date = (string) context.ActionParameters[descriptor.GetParameters()[0].ParameterName];
                 if (string.IsNullOrEmpty(date))
                 {
-                    context.ActionParameters["scheduleDate"] = DateTime.Now.ToString(Formats.DateFormat);
+                    context.ActionParameters[descriptor.GetParameters()[0].ParameterName] = DateTime.Now.ToString(Formats.DateFormat);
                 }
                 else
                 {
@@ -23,10 +23,6 @@ namespace ScheduleCinema.Support
                     if (!DateTime.TryParseExact(date, Formats.DateFormat, null, DateTimeStyles.None, out formattedDate))
                     {
                         context.Controller.ViewData.ModelState.AddModelError("", ErrorMessages.ErrorDateFormatMessage);
-                    }
-                    else
-                    {
-                        context.ActionParameters["scheduleDate"] = formattedDate.Date;
                     }
                 }
             }

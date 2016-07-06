@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Linq;
-using System.Web;
 
-namespace ScheduleCinema.Support
+namespace ScheduleCinema.Support.DataAnnotationAttributes
 {
     public class TimeFormatAndDuplicateAttribute : ValidationAttribute
     {

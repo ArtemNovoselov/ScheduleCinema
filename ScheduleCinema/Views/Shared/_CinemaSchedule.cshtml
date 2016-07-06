@@ -1,0 +1,50 @@
+﻿@using ScheduleCinema.Models
+@using ScheduleCinema.Support.HtmlHelpers
+@model IEnumerable<CinemaSession>
+
+<div class="panel-body">
+    <div class="row">
+        <div class="text-info">
+            <p>
+                @Html.ValidationSummary(false)
+            </p>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Cinema.CinemaName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Movie.MovieName)</th>
+                        <th>@Html.DisplayNameFor(model => model.CinemaSessionSpecs)</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var session in Model)
+                    {
+                        <tr>
+                            <td>
+                                @session.Cinema.CinemaName
+                            </td>
+                            <td>
+                                @session.Movie.MovieName
+                            </td>
+                            <td>
+                                @string.Join(",", session.CinemaSessionSpecs.Select(spec => spec.CinemaSessionSpecTime))
+                            </td>
+                            <td>
+                                @Html.ActionLink("Редактировать", "Edit", "CinemaSessions", new {id = session.CinemaSessionId}, null)
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
