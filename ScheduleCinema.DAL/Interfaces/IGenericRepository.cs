@@ -9,7 +9,7 @@ namespace ScheduleCinema.DAL.Interfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> expression);
-        int Create(T entity);
+        void Create(T entity);
         void Edit(T entity);
         void Delete(T entity);
     }

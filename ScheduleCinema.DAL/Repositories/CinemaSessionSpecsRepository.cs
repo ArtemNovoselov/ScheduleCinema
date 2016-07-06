@@ -33,10 +33,9 @@ namespace ScheduleCinema.DAL.Repositories
             return _dbContext.Set<CinemaSessionSpec>().Where(expression).ToList();
         }
 
-        public int Create(CinemaSessionSpec cinemaSessionSpec)
+        public void Create(CinemaSessionSpec cinemaSessionSpec)
         {
             _dbContext.CinemaSessionSpecs.Add(cinemaSessionSpec);
-            return cinemaSessionSpec.CinemaSessionSpecId;
         }
 
         public void Edit(CinemaSessionSpec cinemaSessionSpec)

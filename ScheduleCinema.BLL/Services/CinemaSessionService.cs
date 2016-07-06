@@ -27,12 +27,9 @@ namespace ScheduleCinema.BLL.Services
             return Database.Movies.GetAll();
         }
 
-        public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId)
+        public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs)
         {
-            foreach (var cinemaSessionSpec in cinemaSessionSpecs.Where(
-                cinemaSessionSpec =>
-                    Database.CinemaSessionSpecs.FindBy(spec => spec.CinemaSessionId == cinemaSessionSpec.CinemaSessionId)
-                        .All(spec => spec.CinemaSessionSpecTime != cinemaSessionSpec.CinemaSessionSpecTime)))
+            foreach (var cinemaSessionSpec in cinemaSessionSpecs)
             {
                 Database.CinemaSessionSpecs.Create(cinemaSessionSpec);
             }
@@ -49,16 +46,15 @@ namespace ScheduleCinema.BLL.Services
             Database.Save();
         }
 
-        public int AddCinemaSession(CinemaSession cinemaSession)
+        public void AddCinemaSession(CinemaSession cinemaSession)
         {
-            var sessionId = Database.CinemaSessions.Create(cinemaSession);
+            Database.CinemaSessions.Create(cinemaSession);
             Database.Save();
-            return sessionId;
         }
 
         public void RemoveCinemaSession(CinemaSession cinemaSession)
         {
-            Database.CinemaSessions.Create(cinemaSession);
+            Database.CinemaSessions.Delete(cinemaSession);
             Database.Save();
         }
 

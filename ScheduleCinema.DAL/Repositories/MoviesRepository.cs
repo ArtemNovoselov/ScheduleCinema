@@ -33,10 +33,9 @@ namespace ScheduleCinema.DAL.Repositories
             return _dbContext.Set<Movie>().Where(expression).ToList();
         }
 
-        public int Create(Movie movie)
+        public void Create(Movie movie)
         {
             _dbContext.Movies.Add(movie);
-            return movie.MovieId;
         }
 
         public void Edit(Movie movie)

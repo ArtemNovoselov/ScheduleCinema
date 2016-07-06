@@ -46,17 +46,18 @@ namespace ScheduleCinema.Controllers
                     MovieId = editViewModel.MovieId
                 };
 
+                _cinemaSessionService.AddCinemaSession(cinemaSession);
+
                 var newSessionSpecs =
                     editViewModel.CinemaSessionTimes.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).Select(
                         time =>
                             new CinemaSessionSpec()
                             {
-                                CinemaSessionId = editViewModel.CinemaSessionId,
+                                CinemaSessionId = cinemaSession.CinemaSessionId,
                                 CinemaSessionSpecTime = TimeSpan.ParseExact(time, Formats.TimeFormat, CultureInfo.InvariantCulture)
                             }).ToList();
 
-                var newSessionId = _cinemaSessionService.AddCinemaSession(cinemaSession);
-                _cinemaSessionService.AddSessionSpecs(newSessionSpecs, newSessionId);
+                _cinemaSessionService.AddSessionSpecs(newSessionSpecs);
 
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }
@@ -107,7 +108,7 @@ namespace ScheduleCinema.Controllers
                             }).ToList();
 
                 _cinemaSessionService.RemoveSessionSpecs(editViewModel.CinemaSessionId);
-                _cinemaSessionService.AddSessionSpecs(newSessionSpecs, editViewModel.CinemaSessionId);
+                _cinemaSessionService.AddSessionSpecs(newSessionSpecs);
                 _cinemaSessionService.EditCinemaSession(cinemaSession);
                 return RedirectToAction("Index", "Home", new { scheduleDate = cinemaSession.CinemaSessionDate.ToString(Formats.DateFormat) });
             }

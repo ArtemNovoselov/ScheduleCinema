@@ -11,11 +11,11 @@ namespace ScheduleCinema.BLL.Interfaces
     {
         IEnumerable<Cinema> GetCinemas();
         IEnumerable<Movie> GetMovies();
-        void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs, int cinemaSessionId);
+        void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs);
         void RemoveSessionSpecs(int cinemaSessionId);
         IEnumerable<CinemaSession> GetCinemasSessions(DateTime date);
         CinemaSession GetCinemaSession(int cinemaSessionId);
-        int AddCinemaSession(CinemaSession cinemaSession);
+        void AddCinemaSession(CinemaSession cinemaSession);
         void RemoveCinemaSession(CinemaSession cinemaSession);
         void EditCinemaSession(CinemaSession cinemaSession);
         void Dispose();

@@ -1,4 +1,5 @@
 ﻿@using ScheduleCinema.Models
+@using ScheduleCinema.Support
 @using ScheduleCinema.Support.HtmlHelpers
 @model IEnumerable<CinemaSession>
 
@@ -35,7 +36,7 @@
                                 @session.Movie.MovieName
                             </td>
                             <td>
-                                @Html.Join(session.CinemaSessionSpecs.Select(spec => spec.CinemaSessionSpecTime.ToString()))
+                                @Html.Join(session.CinemaSessionSpecs.Select(spec => spec.CinemaSessionSpecTime.ToString(Formats.TimeFormat)))
                             </td>
                             <td>
                                 @Html.ActionLink("Редактировать", "Edit", "CinemaSessions", new {id = session.CinemaSessionId}, null)
