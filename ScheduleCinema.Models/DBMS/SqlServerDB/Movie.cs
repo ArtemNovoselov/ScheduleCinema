@@ -1,29 +1,33 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ScheduleCinema.Models.Interfaces;
 
-namespace ScheduleCinema.Models
+namespace ScheduleCinema.Models.DBMS.SqlServerDB
 {
-    [Table("Cinema")]
-    public partial class Cinema
+    [Table("Movie")]
+    public partial class Movie : IMovie
     {
-        public Cinema()
+        public Movie()
         {
             CinemaSessions = new HashSet<CinemaSession>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CinemaId { get; set; }
+        public int MovieId { get; set; }
 
         [Required]
         [StringLength(200)]
-        public string CinemaAddress { get; set; }
+        [DisplayName("Фильм")]
+        public string MovieName { get; set; }
 
         [Required]
-        [StringLength(50)]
-        [DisplayName("Кинотеатр")]
-        public string CinemaName { get; set; }
+        [StringLength(100)]
+        public string MovieDirector { get; set; }
+
+        public TimeSpan MovieDuration { get; set; }
         
         public virtual ICollection<CinemaSession> CinemaSessions { get; set; }
     }

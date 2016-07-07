@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using ScheduleCinema.DAL.EF;
 using ScheduleCinema.DAL.Interfaces;
 using ScheduleCinema.Models;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
 
 namespace ScheduleCinema.DAL.Repositories
 {

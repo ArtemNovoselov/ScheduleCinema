@@ -1,10 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using ScheduleCinema.Models.Interfaces;
 
-namespace ScheduleCinema.Models
+namespace ScheduleCinema.Models.DBMS.MongoDB
 {
     [Table("CinemaSessionSpec")]
-    public partial class CinemaSessionSpec
+    public partial class CinemaSessionSpec : ICinemaSessionSpec
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CinemaSessionSpecId { get; set; }
@@ -16,6 +17,6 @@ namespace ScheduleCinema.Models
 
         public int CinemaSessionId { get; set; }
 
-        public virtual CinemaSession CinemaSession { get; set; }
+        public virtual Interfaces.CinemaSession CinemaSession { get; set; }
     }
 }

@@ -38,6 +38,18 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.2.4\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,16 +61,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cinema.cs" />
-    <Compile Include="CinemaSession.cs" />
-    <Compile Include="CinemaSessionSpec.cs" />
-    <Compile Include="Movie.cs" />
+    <Compile Include="DBMS\MongoDB\Cinema.cs" />
+    <Compile Include="DBMS\MongoDB\CinemaSession.cs" />
+    <Compile Include="DBMS\MongoDB\CinemaSessionSpec.cs" />
+    <Compile Include="Interfaces\ICinemaSession.cs" />
+    <Compile Include="Interfaces\ICinemaSessionSpec.cs" />
+    <Compile Include="Interfaces\ICinema.cs" />
+    <Compile Include="DBMS\MongoDB\Movie.cs" />
+    <Compile Include="Interfaces\IMovie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DBMS\SqlServerDB\Cinema.cs" />
+    <Compile Include="DBMS\SqlServerDB\CinemaSession.cs" />
+    <Compile Include="DBMS\SqlServerDB\CinemaSessionSpec.cs" />
+    <Compile Include="DBMS\SqlServerDB\Movie.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

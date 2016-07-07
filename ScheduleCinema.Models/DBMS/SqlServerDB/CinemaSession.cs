@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using ScheduleCinema.Models.Interfaces;
 
-namespace ScheduleCinema.DAL.Models
+namespace ScheduleCinema.Models.DBMS.SqlServerDB
 {
     [Table("CinemaSession")]
-    public partial class CinemaSession
+    public partial class CinemaSession : ICinemaSession
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CinemaSession()
@@ -23,8 +25,9 @@ namespace ScheduleCinema.DAL.Models
         [Column(TypeName = "date")]
         public DateTime CinemaSessionDate { get; set; }
 
-        public virtual Cinema Cinema { get; set; }
+        public virtual DBMS.MongoDB.Cinema Cinema { get; set; }
         
+        [DisplayName("Время сеансов")]
         public virtual ICollection<CinemaSessionSpec> CinemaSessionSpecs { get; set; }
 
         public virtual Movie Movie { get; set; }

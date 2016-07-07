@@ -1,5 +1,9 @@
 using System.Data.Entity;
 using ScheduleCinema.Models;
+using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
+using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
+using Movie = ScheduleCinema.Models.Interfaces.Movie;
 
 namespace ScheduleCinema.DAL.EF
 {

@@ -1,10 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using ScheduleCinema.Models.Interfaces;
 
-namespace ScheduleCinema.DAL.Models
+namespace ScheduleCinema.Models.DBMS.SqlServerDB
 {
     [Table("CinemaSessionSpec")]
-    public partial class CinemaSessionSpec
+    public partial class CinemaSessionSpec : ICinemaSessionSpec
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CinemaSessionSpecId { get; set; }

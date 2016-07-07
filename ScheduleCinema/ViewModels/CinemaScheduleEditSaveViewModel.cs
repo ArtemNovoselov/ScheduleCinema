@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using ScheduleCinema.Models;
 using ScheduleCinema.Support;
 using ScheduleCinema.Support.DataAnnotationAttributes;
+using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
+using Movie = ScheduleCinema.Models.Interfaces.Movie;
 
 namespace ScheduleCinema.ViewModels
 {

@@ -11,6 +11,8 @@ using ScheduleCinema.BLL.Interfaces;
 using ScheduleCinema.Models;
 using ScheduleCinema.Support;
 using ScheduleCinema.ViewModels;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
+using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
 
 namespace ScheduleCinema.Controllers
 {

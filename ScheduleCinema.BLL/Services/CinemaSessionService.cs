@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using ScheduleCinema.BLL.Interfaces;
 using ScheduleCinema.DAL.Interfaces;
 using ScheduleCinema.Models;
+using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
+using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
+using Movie = ScheduleCinema.Models.Interfaces.Movie;
 
 namespace ScheduleCinema.BLL.Services
 {

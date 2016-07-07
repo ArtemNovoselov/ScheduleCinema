@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using ScheduleCinema.Models;
 using ScheduleCinema.Support;
+using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
 
 namespace ScheduleCinema.ViewModels
 {
