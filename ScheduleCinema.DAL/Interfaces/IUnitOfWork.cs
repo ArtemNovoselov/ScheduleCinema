@@ -4,19 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScheduleCinema.Models;
-using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
-using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
-using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
-using Movie = ScheduleCinema.Models.Interfaces.Movie;
+using ScheduleCinema.Models.Interfaces;
 
 namespace ScheduleCinema.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Cinema> Cinemas { get; }
-        IGenericRepository<CinemaSession> CinemaSessions { get; }
-        IGenericRepository<CinemaSessionSpec> CinemaSessionSpecs { get; }
-        IGenericRepository<Movie> Movies { get; }
+        IGenericRepository<ICinema> Cinemas { get; }
+        IGenericRepository<ICinemaSession> CinemaSessions { get; }
+        IGenericRepository<ICinemaSessionSpec> CinemaSessionSpecs { get; }
+        IGenericRepository<IMovie> Movies { get; }
         void Save();
     }
 }

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 using ScheduleCinema.BLL.Interfaces;
 using ScheduleCinema.DAL.Interfaces;
 using ScheduleCinema.Models;
-using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
-using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
-using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
-using Movie = ScheduleCinema.Models.Interfaces.Movie;
+using ScheduleCinema.Models.Interfaces;
 
 namespace ScheduleCinema.BLL.Services
 {
@@ -21,17 +18,17 @@ namespace ScheduleCinema.BLL.Services
         {
             Database = unit;
         }
-        public IEnumerable<Cinema> GetCinemas()
+        public IEnumerable<ICinema> GetCinemas()
         {
             return Database.Cinemas.GetAll();
         }
 
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<IMovie> GetMovies()
         {
             return Database.Movies.GetAll();
         }
 
-        public void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs)
+        public void AddSessionSpecs(IEnumerable<ICinemaSessionSpec> cinemaSessionSpecs)
         {
             foreach (var cinemaSessionSpec in cinemaSessionSpecs)
             {
@@ -50,30 +47,30 @@ namespace ScheduleCinema.BLL.Services
             Database.Save();
         }
 
-        public void AddCinemaSession(CinemaSession cinemaSession)
+        public void AddCinemaSession(ICinemaSession cinemaSession)
         {
             Database.CinemaSessions.Create(cinemaSession);
             Database.Save();
         }
 
-        public void RemoveCinemaSession(CinemaSession cinemaSession)
+        public void RemoveCinemaSession(ICinemaSession cinemaSession)
         {
             Database.CinemaSessions.Delete(cinemaSession);
             Database.Save();
         }
 
-        public void EditCinemaSession(CinemaSession cinemaSession)
+        public void EditCinemaSession(ICinemaSession cinemaSession)
         {
             Database.CinemaSessions.Edit(cinemaSession);
             Database.Save();
         }
 
-        public IEnumerable<CinemaSession> GetCinemasSessions(DateTime date)
+        public IEnumerable<ICinemaSession> GetCinemasSessions(DateTime date)
         {
             return Database.CinemaSessions.FindBy(cinemaSession => cinemaSession.CinemaSessionDate == date);
         }
 
-        public CinemaSession GetCinemaSession(int cinemaSessionId)
+        public ICinemaSession GetCinemaSession(int cinemaSessionId)
         {
             return Database.CinemaSessions.Get(cinemaSessionId);
         }

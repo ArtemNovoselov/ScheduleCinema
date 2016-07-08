@@ -4,24 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScheduleCinema.Models;
-using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
-using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
-using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
-using Movie = ScheduleCinema.Models.Interfaces.Movie;
+using ScheduleCinema.Models.Interfaces;
 
 namespace ScheduleCinema.BLL.Interfaces
 {
     public interface ICinemaSessionService //Service! Not repository!
     {
-        IEnumerable<Cinema> GetCinemas();
-        IEnumerable<Movie> GetMovies();
-        void AddSessionSpecs(IEnumerable<CinemaSessionSpec> cinemaSessionSpecs);
+        IEnumerable<ICinema> GetCinemas();
+        IEnumerable<IMovie> GetMovies();
+        void AddSessionSpecs(IEnumerable<ICinemaSessionSpec> cinemaSessionSpecs);
         void RemoveSessionSpecs(int cinemaSessionId);
-        IEnumerable<CinemaSession> GetCinemasSessions(DateTime date);
-        CinemaSession GetCinemaSession(int cinemaSessionId);
-        void AddCinemaSession(CinemaSession cinemaSession);
-        void RemoveCinemaSession(CinemaSession cinemaSession);
-        void EditCinemaSession(CinemaSession cinemaSession);
+        IEnumerable<ICinemaSession> GetCinemasSessions(DateTime date);
+        ICinemaSession GetCinemaSession(int cinemaSessionId);
+        void AddCinemaSession(ICinemaSession cinemaSession);
+        void RemoveCinemaSession(ICinemaSession cinemaSession);
+        void EditCinemaSession(ICinemaSession cinemaSession);
         void Dispose();
     }
 }

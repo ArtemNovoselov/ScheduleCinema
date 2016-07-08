@@ -5,11 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ScheduleCinema.DAL.EF;
 using ScheduleCinema.DAL.Interfaces;
-using ScheduleCinema.Models;
-using Cinema = ScheduleCinema.Models.DBMS.MongoDB.Cinema;
-using CinemaSession = ScheduleCinema.Models.Interfaces.CinemaSession;
-using CinemaSessionSpec = ScheduleCinema.Models.Interfaces.CinemaSessionSpec;
-using Movie = ScheduleCinema.Models.Interfaces.Movie;
+using ScheduleCinema.Models.Interfaces;
 
 namespace ScheduleCinema.DAL.Repositories
 {
@@ -26,7 +22,7 @@ namespace ScheduleCinema.DAL.Repositories
             _db = new ScheduleCinemaDbContext(connectionString);
         }
 
-        public IGenericRepository<Cinema> Cinemas
+        public IGenericRepository<ICinema> Cinemas
         {
             get
             {
@@ -38,7 +34,7 @@ namespace ScheduleCinema.DAL.Repositories
             }
         }
 
-        public IGenericRepository<CinemaSession> CinemaSessions
+        public IGenericRepository<ICinemaSession> CinemaSessions
         {
             get
             {
@@ -50,7 +46,7 @@ namespace ScheduleCinema.DAL.Repositories
             }
         }
 
-        public IGenericRepository<CinemaSessionSpec> CinemaSessionSpecs
+        public IGenericRepository<ICinemaSessionSpec> CinemaSessionSpecs
         {
             get
             {
@@ -62,7 +58,7 @@ namespace ScheduleCinema.DAL.Repositories
             }
         }
 
-        public IGenericRepository<Movie> Movies {
+        public IGenericRepository<IMovie> Movies {
             get
             {
                 if (_moviesRepository == null)
